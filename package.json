@@ -1,8 +1,8 @@
 {
-  "name": "sunrise",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "name": "SunriseSunset",
+  "version": "1.0.0",
+  "author": "Tony Plaza",
+  "homepage": "",
   "private": true,
   "scripts": {
     "start": "ionic-app-scripts serve",
@@ -30,7 +30,8 @@
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.26",
-    "cryptiles": "4.1.2"
+    "cryptiles": "4.1.2",
+    "hoek": "4.2.1"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.2.0",
