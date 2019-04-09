@@ -26,6 +26,12 @@
     </ion-input>
     <button ion-button full color="primary" (click)="addSubscriber()">Subscribe!</button>
   </ion-card>
+
+  <ion-card *ngIf="subscribers.length > 0">
+    <ion-item *ngFor="let sub of subscribers">
+      {{sub}}
+    </ion-item>
+  </ion-card>
   <ion-card class="">
     <img src="assets/imgs/dawn-dusk.jpg"/>
     <div class="card-title">Reiki</div>
