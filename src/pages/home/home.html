@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      Sunrise Sunset
+      Paradies Wellness
     </ion-title>
 
   </ion-toolbar>
@@ -12,6 +12,26 @@
 
 <ion-content class="card-background-page" padding>
 
+  <ion-card padding>
+    <ion-item text-center>
+      Subscribe by e-mail to receive all the latest news and events!
+    </ion-item>
+    <ion-label text-left>
+      E-mail Address
+    </ion-label>
+    <ion-input
+      [(ngModel)]="email"
+      placeholder="you@address.com"
+    >
+    </ion-input>
+    <button ion-button full color="primary" (click)="addSubscriber()">Subscribe!</button>
+  </ion-card>
+
+  <ion-card *ngIf="subscribers.length > 0">
+    <ion-item *ngFor="let sub of subscribers">
+      {{sub}}
+    </ion-item>
+  </ion-card>
   <ion-card class="">
     <img src="assets/imgs/dawn-dusk.jpg"/>
     <div class="card-title">Reiki</div>
