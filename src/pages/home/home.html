@@ -12,20 +12,20 @@
 
 <ion-content class="card-background-page" padding>
 
-  <ion-card padding>
-    <ion-item text-center>
-      Subscribe by e-mail to receive all the latest news and events!
-    </ion-item>
-    <ion-label text-left>
-      E-mail Address
-    </ion-label>
-    <ion-input
-      [(ngModel)]="email"
-      placeholder="you@address.com"
-    >
-    </ion-input>
-    <button ion-button full color="primary" (click)="addDatabaseSubscriber()">Subscribe!</button>
-  </ion-card>
+  <form [formGroup]="subscriberForm" (ngSubmit)="addDatabaseSubscriber()">
+    <ion-card padding>
+      <ion-item text-center>
+        Subscribe to receive all the latest news and events!
+      </ion-item>
+
+      <ion-item padding>
+        <ion-label floating>E-mail Address</ion-label>
+        <ion-input type="email" formControlName="email" email></ion-input>
+      </ion-item>
+
+      <button ion-button round full color="primary" type="submit" [disabled]="!subscriberForm.valid">Subscribe!</button>
+    </ion-card>
+  </form>
 
   <ion-card *ngIf="databaseSubscribers.length > 0">
     <ion-item *ngFor="let sub of databaseSubscribers" (click)="deleteDatabaseSubscriber(sub.id)">
