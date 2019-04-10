@@ -18,12 +18,12 @@
         Subscribe to receive all the latest news and events!
       </ion-item>
 
-      <ion-label text-left>
-        E-mail Address
-      </ion-label>
-      <ion-input type="email" formControlName="email" placeholder="you@address.com" email></ion-input>
+      <ion-item padding>
+        <ion-label floating>E-mail Address</ion-label>
+        <ion-input type="email" formControlName="email" email></ion-input>
+      </ion-item>
 
-      <button ion-button full color="primary" type="submit" [disabled]="!subscriberForm.valid">Subscribe!</button>
+      <button ion-button round full color="primary" type="submit" [disabled]="!subscriberForm.valid">Subscribe!</button>
     </ion-card>
   </form>
 
