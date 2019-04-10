@@ -22,11 +22,12 @@ export class HomePage implements OnInit {
     console.log(environment.production);
     console.log(environment.message);
     console.log(SERVER_URL);
-
     this.buildSubscribers();
   }
 
   buildSubscribers() {
+    this.databaseSubscribers = [];
+
     this.firebaseService.getDatabaseSubscribers().then((subscribers) => {
       for (const id in subscribers) {
         this.databaseSubscribers.push({id: id, email: subscribers[id].email, timestamp: subscribers[id].timestamp});
@@ -35,6 +36,7 @@ export class HomePage implements OnInit {
       console.error(e);
     });
   }
+
   addFirestoreSubscriber() {
     this.firebaseService.createFirestoreSubscriber(this.email)
       .then((res)=>{
@@ -55,6 +57,7 @@ export class HomePage implements OnInit {
       .then(() =>{
         console.log("Subscriber created in database! " + email);
         alert("Thank you for subscribing! " + email);
+        this.buildSubscribers();
       }).catch((e) => {
         console.error(e);
         if (e.includes("already")) {
@@ -70,9 +73,12 @@ export class HomePage implements OnInit {
   deleteDatabaseSubscriber(id: string) {
     this.firebaseService.deleteDatabaseSubscriber(id).then(() => {
       console.log("successful delete");
+      this.buildSubscribers();
     }).catch((e) => {
       console.error(e);
     });
+
+
   }
 
 }

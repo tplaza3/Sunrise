@@ -17,17 +17,6 @@ export class FirebaseService {
     });
   }
 
-  printDatabaseSubscribersByEmail() {
-    this.fireDatabase.database.ref().once('value').then((snapshot) => {
-      snapshot.forEach((child) => {
-        console.log("child " + JSON.stringify(child));
-        for (const sub in child.val()) {
-          console.log(child.val()[sub].email);
-        }
-      });
-    })
-  }
-
   getDatabaseSubscribers() {
     return new Promise<any>((resolve, reject) => {
       this.fireDatabase.database.ref().once('value', (snapshot) => {
