@@ -12,17 +12,10 @@ import { Subscriber } from "../../types/subscriber";
 export class HomePage implements OnInit {
 
   email: string;
-  subscribers: string[] = [];
-
-  databaseSubscribers: Subscriber[];
+  databaseSubscribers: Subscriber[] = [];
 
   constructor(public navCtrl: NavController, public firebaseService: FirebaseService) {
     console.log("Entering HomePage");
-    firebaseService.getSubscribers()
-      .then((dbSubs: Subscriber[]) =>{
-        this.databaseSubscribers = dbSubs;
-        console.log(JSON.stringify(this.databaseSubscribers));
-      });
   }
 
   ngOnInit(): void {
@@ -30,14 +23,56 @@ export class HomePage implements OnInit {
     console.log(environment.message);
     console.log(SERVER_URL);
 
+    this.buildSubscribers();
   }
 
-  addSubscriber() {
-    console.log(this.email);
-    this.subscribers.push(this.email);
+  buildSubscribers() {
+    this.firebaseService.getDatabaseSubscribers().then((subscribers) => {
+      for (const id in subscribers) {
+        this.databaseSubscribers.push({id: id, email: subscribers[id].email, timestamp: subscribers[id].timestamp});
+      }
+    }).catch((e) => {
+      console.error(e);
+    });
+  }
+  addFirestoreSubscriber() {
+    this.firebaseService.createFirestoreSubscriber(this.email)
+      .then((res)=>{
+        console.log("Subscriber created in firestore!");
+        alert("Thanks for subscribing! " + this.email);
+      }).catch((e) => {
+        console.error(e);
+        alert("Subscriber was not added");
+      });
 
-    alert("Thanks for subscribing! " + this.email);
     this.email = "";
+  }
+
+  addDatabaseSubscriber() {
+    const email = this.email;
+
+    this.firebaseService.createDatabaseSubscriber(email, this.databaseSubscribers)
+      .then(() =>{
+        console.log("Subscriber created in database! " + email);
+        alert("Thank you for subscribing! " + email);
+      }).catch((e) => {
+        console.error(e);
+        if (e.includes("already")) {
+          alert("Thank you for subscribing! " + email);
+        } else {
+          alert("Oops! Something went wrong. Please try subscribing again.")
+        }
+    });
+
+    this.email = "";
+  }
+
+  deleteDatabaseSubscriber(id: string) {
+    this.firebaseService.deleteDatabaseSubscriber(id).then(() => {
+      console.log("successful delete");
+    }).catch((e) => {
+      console.error(e);
+    });
   }
 
 }
