@@ -28,7 +28,7 @@
   </ion-card>
 
   <ion-card *ngIf="databaseSubscribers.length > 0">
-    <ion-item *ngFor="let sub of databaseSubscribers">
+    <ion-item *ngFor="let sub of databaseSubscribers" (click)="deleteDatabaseSubscriber(sub.id)">
       {{ sub.email }}
     </ion-item>
   </ion-card>

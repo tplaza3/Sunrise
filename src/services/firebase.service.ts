@@ -53,8 +53,6 @@ export class FirebaseService {
         timestamp: Date.now().valueOf()
       });
     }
-
-
   }
 
   createFirestoreSubscriber(email: string) {
@@ -62,5 +60,9 @@ export class FirebaseService {
       email: email,
       timestamp: Date.now().valueOf()
     });
+  }
+
+  deleteDatabaseSubscriber(id: string) {
+    return this.fireDatabase.database.ref('subscribers/' + id).remove();
   }
 }

@@ -23,15 +23,18 @@ export class HomePage implements OnInit {
     console.log(environment.message);
     console.log(SERVER_URL);
 
+    this.buildSubscribers();
+  }
+
+  buildSubscribers() {
     this.firebaseService.getDatabaseSubscribers().then((subscribers) => {
-        for (const id in subscribers) {
-          this.databaseSubscribers.push(subscribers[id]);
-        }
+      for (const id in subscribers) {
+        this.databaseSubscribers.push({id: id, email: subscribers[id].email, timestamp: subscribers[id].timestamp});
+      }
     }).catch((e) => {
       console.error(e);
     });
   }
-
   addFirestoreSubscriber() {
     this.firebaseService.createFirestoreSubscriber(this.email)
       .then((res)=>{
@@ -62,6 +65,14 @@ export class HomePage implements OnInit {
     });
 
     this.email = "";
+  }
+
+  deleteDatabaseSubscriber(id: string) {
+    this.firebaseService.deleteDatabaseSubscriber(id).then(() => {
+      console.log("successful delete");
+    }).catch((e) => {
+      console.error(e);
+    });
   }
 
 }
