@@ -24,10 +24,11 @@ export class HomePage implements OnInit {
     console.log(SERVER_URL);
 
     this.firebaseService.getDatabaseSubscribers().then((subscribers) => {
-      for (const id in subscribers) {
-        this.databaseSubscribers.push(subscribers[id]);
-      }
-      console.log(this.databaseSubscribers);
+        for (const id in subscribers) {
+          this.databaseSubscribers.push(subscribers[id]);
+        }
+    }).catch((e) => {
+      console.error(e);
     });
   }
 
@@ -38,20 +39,26 @@ export class HomePage implements OnInit {
         alert("Thanks for subscribing! " + this.email);
       }).catch((e) => {
         console.error(e);
-        alert("Email was not valid");
+        alert("Subscriber was not added");
       });
 
     this.email = "";
   }
 
   addDatabaseSubscriber() {
-    this.firebaseService.createDatabaseSubscriber(this.email)
+    const email = this.email;
+
+    this.firebaseService.createDatabaseSubscriber(email, this.databaseSubscribers)
       .then(() =>{
-        console.log("Subscriber created in database!");
-        alert("Thanks for subscribing! " + this.email);
+        console.log("Subscriber created in database! " + email);
+        alert("Thank you for subscribing! " + email);
       }).catch((e) => {
         console.error(e);
-        alert("Email was not valid");
+        if (e.includes("already")) {
+          alert("Thank you for subscribing! " + email);
+        } else {
+          alert("Oops! Something went wrong. Please try subscribing again.")
+        }
     });
 
     this.email = "";

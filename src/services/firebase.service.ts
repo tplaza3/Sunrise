@@ -31,19 +31,30 @@ export class FirebaseService {
   getDatabaseSubscribers() {
     return new Promise<any>((resolve, reject) => {
       this.fireDatabase.database.ref().once('value', (snapshot) => {
-        resolve(snapshot.val().subscribers);
+        if (snapshot.hasChildren()) {
+          resolve(snapshot.val().subscribers);
+        } else {
+          reject("No database subscribers.");
+        }
       }, (error) => {
-        console.error(error);
-        reject({});
+        reject(error);
       });
     })
   }
 
-  createDatabaseSubscriber(email: string): Promise<any> {
-    return this.fireDatabase.database.ref('subscribers').push().set({
-      email: email,
-      timestamp: Date.now().valueOf()
-    });
+  createDatabaseSubscriber(email: string, subscribers: Subscriber[]): Promise<any> {
+    if (JSON.stringify(subscribers).toString().includes(email)) {
+      return new Promise(((resolve, reject) => {
+        reject(email + " has already subscribed.")
+      }));
+    } else {
+      return this.fireDatabase.database.ref('subscribers').push().set({
+        email: email,
+        timestamp: Date.now().valueOf()
+      });
+    }
+
+
   }
 
   createFirestoreSubscriber(email: string) {
