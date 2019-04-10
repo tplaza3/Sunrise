@@ -1,5 +1,5 @@
 {
-  "name": "SunriseSunset",
+  "name": "SunRise",
   "version": "1.0.0",
   "author": "Tony Plaza",
   "homepage": "",
@@ -16,6 +16,7 @@
     "@angular/compiler": "5.2.11",
     "@angular/compiler-cli": "5.2.11",
     "@angular/core": "5.2.11",
+    "@angular/fire": "^5.1.2",
     "@angular/forms": "5.2.11",
     "@angular/http": "5.2.11",
     "@angular/platform-browser": "5.2.11",
@@ -25,17 +26,19 @@
     "@ionic-native/status-bar": "~4.15.0",
     "@ionic/pro": "2.0.3",
     "@ionic/storage": "2.2.0",
+    "cryptiles": "4.1.2",
+    "firebase": "^5.9.3",
+    "hoek": "4.2.1",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
-    "rxjs": "5.5.11",
+    "rxjs": "^6.3.3",
+    "rxjs-compat": "^6.3.3",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.26",
-    "cryptiles": "4.1.2",
-    "hoek": "4.2.1"
+    "zone.js": "0.8.26"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.2.0",
     "typescript": "~2.6.2"
   },
-  "description": "An Ionic project"
+  "description": "Web app for SunRise Wellness"
 }

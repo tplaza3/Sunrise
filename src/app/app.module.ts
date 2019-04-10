@@ -7,6 +7,11 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { FormsModule } from "@angular/forms";
+import { AngularFireModule } from "@angular/fire";
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { firebaseConfig } from "../../firebase/firebaseConfig";
+import { FirebaseService } from "../services/firebase.service";
+import { AngularFireDatabaseModule} from "@angular/fire/database";
 
 @NgModule({
   declarations: [
@@ -16,7 +21,10 @@ import { FormsModule } from "@angular/forms";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(firebaseConfig, 'sunrise'),
+    AngularFirestoreModule,
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -26,7 +34,8 @@ import { FormsModule } from "@angular/forms";
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    FirebaseService
   ]
 })
 export class AppModule {}
