@@ -11,7 +11,7 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { firebaseConfig } from "../../firebase/firebaseConfig";
 import { FirebaseService } from "../services/firebase.service";
-import { AngularFireDatabaseModule} from "@angular/fire/database";
+import { AngularFireDatabaseModule } from "@angular/fire/database";
 
 @NgModule({
   declarations: [

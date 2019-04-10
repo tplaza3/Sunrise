@@ -12,17 +12,10 @@ import { Subscriber } from "../../types/subscriber";
 export class HomePage implements OnInit {
 
   email: string;
-  subscribers: string[] = [];
-
-  databaseSubscribers: Subscriber[];
+  databaseSubscribers: Subscriber[] = [];
 
   constructor(public navCtrl: NavController, public firebaseService: FirebaseService) {
     console.log("Entering HomePage");
-    firebaseService.getSubscribers()
-      .then((dbSubs: Subscriber[]) =>{
-        this.databaseSubscribers = dbSubs;
-        console.log(JSON.stringify(this.databaseSubscribers));
-      });
   }
 
   ngOnInit(): void {
@@ -30,13 +23,37 @@ export class HomePage implements OnInit {
     console.log(environment.message);
     console.log(SERVER_URL);
 
+    this.firebaseService.getDatabaseSubscribers().then((subscribers) => {
+      for (const id in subscribers) {
+        this.databaseSubscribers.push(subscribers[id]);
+      }
+      console.log(this.databaseSubscribers);
+    });
   }
 
-  addSubscriber() {
-    console.log(this.email);
-    this.subscribers.push(this.email);
+  addFirestoreSubscriber() {
+    this.firebaseService.createFirestoreSubscriber(this.email)
+      .then((res)=>{
+        console.log("Subscriber created in firestore!");
+        alert("Thanks for subscribing! " + this.email);
+      }).catch((e) => {
+        console.error(e);
+        alert("Email was not valid");
+      });
 
-    alert("Thanks for subscribing! " + this.email);
+    this.email = "";
+  }
+
+  addDatabaseSubscriber() {
+    this.firebaseService.createDatabaseSubscriber(this.email)
+      .then(() =>{
+        console.log("Subscriber created in database!");
+        alert("Thanks for subscribing! " + this.email);
+      }).catch((e) => {
+        console.error(e);
+        alert("Email was not valid");
+    });
+
     this.email = "";
   }
 

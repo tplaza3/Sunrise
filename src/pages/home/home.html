@@ -24,12 +24,12 @@
       placeholder="you@address.com"
     >
     </ion-input>
-    <button ion-button full color="primary" (click)="addSubscriber()">Subscribe!</button>
+    <button ion-button full color="primary" (click)="addDatabaseSubscriber()">Subscribe!</button>
   </ion-card>
 
-  <ion-card *ngIf="subscribers.length > 0">
-    <ion-item *ngFor="let sub of subscribers">
-      {{sub}}
+  <ion-card *ngIf="databaseSubscribers.length > 0">
+    <ion-item *ngFor="let sub of databaseSubscribers">
+      {{ sub.email }}
     </ion-item>
   </ion-card>
 
