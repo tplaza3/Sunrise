@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import { NavController} from 'ionic-angular';
-import { environment, SERVER_URL } from "../../environments/environment";
+import { environment } from "../../environments/environment";
 import { FirebaseService } from "../../services/firebase.service";
 import { Subscriber } from "../../types/subscriber";
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -16,20 +16,15 @@ export class HomePage implements OnInit {
   databaseSubscribers: Subscriber[] = [];
   subscriberForm: FormGroup;
 
-  constructor(public navCtrl: NavController, public firebaseService: FirebaseService, private formBuilder: FormBuilder) {
-    console.log("Entering HomePage");
-  }
+  constructor(public navCtrl: NavController, public firebaseService: FirebaseService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     console.log(environment.production);
-    console.log(environment.message);
-    console.log(SERVER_URL);
     this.createForm();
     this.buildSubscribers();
   }
 
   createForm() {
-    console.log("Form created");
     this.subscriberForm = this.formBuilder.group({
       email: ['', Validators.required]
     });
