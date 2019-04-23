@@ -1,6 +1,4 @@
 export const environment = {
-  production: false,
-  message: 'hello dev',
+  production: process.env.IONIC_ENV === 'prod',
+  development: process.env.IONIC_ENV === 'dev'
 };
-
-export const SERVER_URL = "http://localhost:8100";
